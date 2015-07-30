@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+#NOTE: only works with mplayer2
+
 
 __author__ = 'jd'
 from gi.repository import Gtk, GdkPixbuf, Gdk
