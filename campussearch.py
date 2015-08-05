@@ -11,11 +11,9 @@ import threading
 
 """
 TODO
-- style using CSS
-- add more keyboard shortcuts
-- automatically focus searchbox on typing
-- add NowPLaying bar
-- add a statusbar
+- style using CSS (improve the looks)
+- add youtube support
+
 
 """
 
@@ -59,9 +57,12 @@ class CampusSearch():
         self.vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6, opacity=0.5)
         self.vbox.set_name("vbox")
 
-        #Add padding
-        self.vbox.add(Gtk.Label())
-
+        #Add title
+        title_label = Gtk.Label("CampusSearch")
+        title_label.set_name("title")
+        #title_label.set_markup("<b></b>")
+        title_label.set_size_request(80,70)
+        self.vbox.add(title_label)
         #Create horizontal top row
         self.header = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=20)
         #self.vbox.pack_start(self.header, True, True, 30)
@@ -70,6 +71,7 @@ class CampusSearch():
         self.addSearchBox()
         self.addNowPlaying()
         self.addResultList()
+        self.addFooter()
         #Apply CSS
         self.applyCSS()
 
@@ -104,7 +106,27 @@ class CampusSearch():
         css = """
 
             #campussearch {
-                background-color : white;
+                background-color : #C8C9F3;
+
+            }
+
+            #campussearch GtkContainer {
+                background-color : #C8C9F3;
+
+            }
+
+            #title {
+                color : blue;
+                padding-top : 50px;
+                padding-bottom : 50px;
+                font-size : 25px;
+                font-weight : bold;
+            }
+
+            #footer {
+                color : blue;
+                font-size : 13px;
+
             }
 
             #campussearch .entry {
@@ -114,17 +136,23 @@ class CampusSearch():
             }
 
             #campussearch GtkListBoxRow {
-                color : green;
-                background-color : red;
-
-            }
-
-            #campussearch GtkContainer {
-                background-color : white;
+                color : black;
+                background-color : transparent;
+                border-style : inset;
 
 
 
             }
+
+            #campussearch GtkListBoxRow:focus {
+                color : blue;
+                background-color : #dedfff;
+                border-style: inset;
+                border-width : 1px;
+                transition: 300ms ease-in-out;
+            }
+
+
 
             #campussearch GtkBox {
                 background-color : transparent;
@@ -136,14 +164,10 @@ class CampusSearch():
             #campussearch GtkLabel {
 
                 padding-left : 100px;
-                color : red;
+
             }
 
-            #campussearch GtkLabel:active {
 
-                padding-left : 100px;
-                color : pink;
-            }
 
 
             #campussearch GtkScrolledWindow {
@@ -206,6 +230,8 @@ class CampusSearch():
         #add signal handler
         row.connect("key_press_event", self.resultKeyPress)
 
+
+
     def addNowPlaying(self):
         self.nowPlayingBox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
         self.nowPlayingLabel = Gtk.Label("", xalign=0)
@@ -214,8 +240,14 @@ class CampusSearch():
         self.nowPlayingBox.add(self.nowPlayingLabel)
         self.header.pack_end(self.nowPlayingBox, False, False, 30)
 
-
-
+    def addFooter(self):
+        self.footerbar = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
+        self.footerbar.set_name("footer")
+        self.footerbar.add(Gtk.Label("Escape: quit/stop"))
+        self.footerbar.add(Gtk.Label("Arrow keys: navigate"))
+        self.footerbar.add(Gtk.Label("Enter: search/play"))
+        self.footerbar.add(Gtk.Label("Other key: type"))
+        self.vbox.pack_end(self.footerbar, False, False, 5)
 
 
 
