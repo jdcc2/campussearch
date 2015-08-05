@@ -132,10 +132,11 @@ class CampusSearch():
 
             }
 
-            #campussearch .entry {
+            #searchbox {
                 border-radius: 3px;
                 border-style: solid;
                 border-width: 1px;
+		padding-right : 100px;
             }
 
             #campussearch GtkListBoxRow {
@@ -210,12 +211,12 @@ class CampusSearch():
 
     def addSearchBox(self):
         self.searchbox = Gtk.Entry(width_request=10)
-
+        self.searchbox.set_name("searchbox")
         box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
         box.pack_start(self.searchbox, True, True, 30)
         self.header.pack_start(box, True, True, 50)
         #Extra box for spacing
-        self.header.pack_start(Gtk.Box(), True, True, 50)
+        #self.header.pack_start(Gtk.Box(), True, True, 50)
         #Add signal handler
         #box.connect("key_press_event", self.stopPropagation)
         self.searchbox.connect("key_press_event", self.searchKeyPress)
