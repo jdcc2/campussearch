@@ -24,6 +24,7 @@ class CampusSearch():
         #Playing status
 
         self.isPlaying = False
+        self.process = None
 
 
         #Create main window
@@ -369,15 +370,19 @@ class CampusSearch():
         thread.start()
 
     def playThreaded(self, smb_url, on_exit):
-        self.process = subprocess.Popen(["mpv", smb_url])
-        self.process.wait()
+        try:
+            self.process = subprocess.Popen(["mpv", smb_url])
+            self.process.wait()
+        except FileNotFoundError:
+            print("Error: mpv binary not found")
         on_exit()
 
     def endPlay(self):
         self.isPlaying = False
-        self.process.poll()
-        if self.process.returncode == None:
-            self.process.terminate()
+        if not self.process == None:
+            self.process.poll()
+            if self.process.returncode == None:
+                self.process.terminate()
         self.hideNowPlaying()
 
     def showNowPlaying(self, title):
