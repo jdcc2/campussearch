@@ -141,7 +141,7 @@ class CampusSearch():
             #campussearch GtkListBoxRow {
                 color : black;
                 background-color : transparent;
-                border-style : inset;
+                
 
 
 
@@ -373,7 +373,7 @@ class CampusSearch():
 
     def playThreaded(self, smb_url, on_exit):
         try:
-            self.process = subprocess.Popen(["mpv", smb_url])
+            self.process = subprocess.Popen(["mpv", "-fs", "--hwdec=vdpau", smb_url])
             self.process.wait()
         except FileNotFoundError:
             print("Error: mpv binary not found")
