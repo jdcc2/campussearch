@@ -9,6 +9,8 @@ import untangle
 import subprocess
 import threading
 
+
+
 """
 TODO
 - style using CSS (improve the looks)
@@ -408,7 +410,6 @@ class CampusSearch():
 
 
 if __name__ == "__main__":
-
     cs = CampusSearch()
 
 
