@@ -373,7 +373,7 @@ class CampusSearch():
 
     def playThreaded(self, smb_url, on_exit):
         try:
-            self.process = subprocess.Popen(["mpv", "-fs", "--hwdec=vdpau", "--fs-screen=1",  smb_url])
+            self.process = subprocess.Popen(["mpv", "-fs", "--hwdec=vdpau", "--vo=vdpau", "--fs-screen=1",  smb_url])
             self.process.wait()
         except FileNotFoundError:
             print("Error: mpv binary not found")
